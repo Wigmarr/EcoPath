@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4253904887682368059
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2453070569977099306, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3111584732068694063, guid: f8bea91a5ea128841baa790d48bac7ca, type: 3}
+    - target: {fileID: 2453070569977099306, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3313526850150455309, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Touch
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.1246605
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.6538982
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314816065645451859, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3802216626940480144, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_Name
+      value: CatchTheTrashPlayer Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7923471561520882115, guid: d9187666a94772c43b90720359c61071, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3802216626940480144, guid: d9187666a94772c43b90720359c61071, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4978371203317984072}
+  m_SourcePrefab: {fileID: 100100000, guid: d9187666a94772c43b90720359c61071, type: 3}
+--- !u!1 &1138504800573589675 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3802216626940480144, guid: d9187666a94772c43b90720359c61071, type: 3}
+  m_PrefabInstance: {fileID: 4253904887682368059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4978371203317984072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138504800573589675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f1e07845211844595da249ba231614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trashCanPlastic: {fileID: 0}
+  trashCanPaper: {fileID: 0}
+  trashCanFood: {fileID: 0}

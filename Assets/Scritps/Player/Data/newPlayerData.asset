@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd72a755d55348643868ca52eb51b612, type: 3}
+  m_Name: newPlayerData
+  m_EditorClassIdentifier: 
+  acceleration: 4
+  deceleration: 15
+  maxSpeed: 10
+  startSpeed: 5
+  minSpeed: 0.4
+  airAcceleration: 3
+  airDeceleration: 3
+  maxFallSpeed: 2
+  jumpHeight: 10
+  jumpTime: 0.7
+  jumpCut: 0.7
+  jumpNumber: 1
+  coyoteTime: 0.15
+  fallGravityMult: 1.2
+  wallSpeed: 2
+  wallJumpHeight: 9
+  wallJumpDistance: 9
+  dashSpeed: 15
+  dashDistance: 0
+  dashTime: 0.25
+  dashNumber: 0
+  dashCoolDown: 0.1
+  drag: 0
+  afterImagesTimer: 0.2
