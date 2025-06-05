@@ -13,13 +13,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - Water
   - Water
   - UI
-  - Player
+  - Ground
+  - BackGround
   - TrashCan
-  - 
-  - 
+  - ForeGround
   - 
   - 
   - 
@@ -43,11 +43,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: backGround
+  - name: BackGround
     uniqueID: 1015202185
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ForeGround
+    uniqueID: 3605503341
     locked: 0
   m_RenderingLayers:
   - Default

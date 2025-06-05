@@ -26,7 +26,11 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private Rigidbody2D rb = null;
     [SerializeField] float fallSpeed = 1.0f;
     [SerializeField] float conveirSpeed = 2.0f;
-
+    [SerializeField] float tossTime = 1.0f;
+    float tossSpeedX = 0f;
+    float tossSpeedY = 0f;
+    [SerializeField] SpriteRenderer spriteRenderer = null;
+    [SerializeField] TrashType type = TrashType.Unsorted;
     private void Start()
     {
 
@@ -36,15 +40,44 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
     private void FixedUpdate()
     {
-        if (canCollisions.Count< 0)
+        if (canCollisions.Count == 0)
         {
             isOnTrashCan = false;
+            isRising = false;
+            isLanding = false;
+            tossSpeedX = 0;
+            tossSpeedY = 0;
+            closesetTrashCan = null;
         }
+
         if (isDraging)
         {
             OnMouseDrag();
             return;
         }
+
+
+        if (!isLanding && !isRising)
+        {
+            float minDistance = 10000;
+
+            foreach (var collider in canCollisions)
+            {
+
+                float currDistance = (collider.Value.gameObject.transform.position - transform.position).magnitude;
+                if (currDistance < minDistance)
+                {
+                    closesetTrashCan = collider.Value;
+                }
+            }
+        }
+        if (isLanding || isRising)
+        {
+            JumpToTrashCan();
+            Move();
+            return;
+        }
+
 
         if (isOnConveir)
         {
@@ -61,34 +94,20 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             movement.y = 0;
         }
-        if (isOnTrashCan)
-        {
-            if (!isLanding && !isRising)
-            {
-                float minDistance = 10000;
-
-                foreach (var collider in canCollisions)
-                {
-
-                    float currDistance = (collider.Value.gameObject.transform.position - transform.position).magnitude;
-                    if (currDistance < minDistance)
-                    {
-                        closesetTrashCan = collider.Value;
-                    }
-                }
-            }
-            JumpToTrashCan();
-            
-        }
+        
         Move();
 
     }
 
     private void JumpToTrashCan()
     {
+
+        var targetPos = closesetTrashCan.transform.position;
         if (!isLanding && !isRising)
         {
             isRising = true;
+            tossSpeedX = (targetPos - transform.position).x / tossTime;
+            tossSpeedY = ((targetPos - transform.position).y +2.5f*2 )/ tossTime;
         }
         
         if (isRising)
@@ -97,29 +116,38 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 isRising = false;
                 isLanding = true;
+                spriteRenderer.sortingLayerID = SortingLayer.NameToID("BackGround");
+                
+            } else
+            {
+                movement.y = Time.fixedDeltaTime * tossSpeedY;
             }
         }
-        if (isLanding && (transform.position - closesetTrashCan.transform.position).magnitude <= 0.001)
+        
+        if (isLanding )
         {
-            Destroy(gameObject);
+            if (Mathf.Abs((transform.position - closesetTrashCan.transform.position).magnitude) <= 1)
+            {
+                
+                Destroy(gameObject);
+                return;
+            }
+            movement.y -= Time.fixedDeltaTime*tossSpeedY;
         }
-
-
-
-
+        movement.x = Time.fixedDeltaTime * tossSpeedX;
     }
 
     private void Move()
     {
         Vector2 clampedMovement = new Vector2(movement.x, movement.y);
-        if (clampedMovement.magnitude >= 0.0625)
-        {
+        //if (clampedMovement.magnitude >= 0.0625)
+        //{
             movement -= clampedMovement;
             if (clampedMovement != Vector2.zero)
             {
                 rb.MovePosition(new Vector2(transform.position.x, transform.position.y) + clampedMovement);
             }
-        }
+        //}
     }
 
     private void OnMouseDrag()
@@ -138,22 +166,29 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void HandleRelease()
     {
-        if (!isOnTrashCan && !isOnConveir)
+        if (!isOnTrashCan && !isOnConveir && !isRising && !isLanding)
         {
+
             isInAir = true;
         } else if (isOnTrashCan)
         {
+            
             isRising = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (collision.CompareTag("TrashCan"))
         {
-            var trashType = collision.gameObject.GetComponent<CatchTrashCan>().TrashType;
+        Debug.Log("EnterTrash");
+            Debug.Log("isLanding: " + isLanding);
+            Debug.Log("isRising: " + isRising);
+            Debug.Log("isInAir: " + isInAir);
+            var trashType = collision.gameObject.GetComponent<SortTrashCan>().TrashType;
             isOnTrashCan = true;
-            isInAir = false;
+            //isInAir = false;
             canCollisions.Add(trashType, collision);
         }
     }
@@ -162,14 +197,25 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (other.CompareTag("TrashCan"))
         {
-            var trashType = other.gameObject.GetComponent<CatchTrashCan>().TrashType;
+            Debug.Log("ExitTrash");
+
+            var trashType = other.gameObject.GetComponent<SortTrashCan>().TrashType;
             canCollisions.Remove(trashType);
-            isOnTrashCan = false;
+            Debug.Log("isLanding: " + isLanding);
+            Debug.Log("isRising: " + isRising);
+            Debug.Log("isInAir: " + isInAir);
+            if (canCollisions.Count == 0)
+            {
+                //isOnTrashCan = false;
+                //if (!isDraging && !isOnConveir )
+                //{
+                //    isInAir = true;
+                //}
+            }
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("EnteredCollision");
         
        if (collision.collider.CompareTag("Conveir"))
         {
@@ -180,7 +226,7 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log("EnteredCollision");
+        Debug.Log("ExitCollision");
 
        
         if (collision.collider.CompareTag("Conveir"))
