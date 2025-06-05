@@ -57,20 +57,6 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
 
-        if (!isLanding && !isRising)
-        {
-            float minDistance = 10000;
-
-            foreach (var collider in canCollisions)
-            {
-
-                float currDistance = (collider.Value.gameObject.transform.position - transform.position).magnitude;
-                if (currDistance < minDistance)
-                {
-                    closesetTrashCan = collider.Value;
-                }
-            }
-        }
         if (isLanding || isRising)
         {
             JumpToTrashCan();
@@ -172,7 +158,17 @@ public class stTrash : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             isInAir = true;
         } else if (isOnTrashCan)
         {
-            
+            float minDistance = 10000;
+
+            foreach (var collider in canCollisions)
+            {
+
+                float currDistance = (collider.Value.gameObject.transform.position - transform.position).magnitude;
+                if (currDistance < minDistance)
+                {
+                    closesetTrashCan = collider.Value;
+                }
+            }
             isRising = true;
         }
     }
